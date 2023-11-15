@@ -1,0 +1,54 @@
+:root {
+    --black1:#050505;
+    --black2:#030303;
+    --black3:#060606;
+    --black4:#090909;
+    --black5:#0c0c0c;
+    --gray2:#1d1d1d;
+    --gray3:#1e1e1e;
+    --gray4:#343434;
+    --gray5:#4a4a4a;
+    --gray6:#bbbbbb;
+    --gray7:#d2d2d2;
+    --gray8:#e8e8e8;
+    --white:#ffffff;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login{
+    margin: 25px;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.493);
+    color: white;
+    border-radius: 25px;
+    padding: 25px;
+}
+.card-login h1{
+    text-align: center;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-btn{
+    width:100px;
+    height: 25px; 
+    background-color: green; 
+    color: white;
+    border-radius: 10px;
+    border-color: 1px var(--white);
+    margin-bottom: 10px;
+    margin-top: 10px;
+}

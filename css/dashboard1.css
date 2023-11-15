@@ -1,0 +1,150 @@
+:root {
+    --black1:#050505;
+    --black2:#030303;
+    --black3:#060606;
+    --black4:#090909;
+    --black5:#0c0c0c;
+    --gray2:#1d1d1d;
+    --gray3:#1e1e1e;
+    --gray4:#343434;
+    --gray5:#4a4a4a;
+    --gray6:#bbbbbb;
+    --gray7:#d2d2d2;
+    --gray8:#e8e8e8;
+    --white:#ffffff;
+}
+.body-tittle{
+    display: flex;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+}
+.body-list{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: #f56b6b;
+    color: White;
+    margin: 10px;
+    padding: 15px;
+    width: 250px;
+    height: min-content;
+}
+
+.tittle-card{
+    border-bottom: 2px solid white;
+    padding: 0.2px;
+    padding-left: 15px;
+    background-color: rgba(255, 0, 0, 0.562);
+    text-align: start;
+    margin: 5px;
+}
+
+
+
+.task{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    margin: 5px;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.box-x{
+    width: 100%;
+    align-items: end;
+    text-align: end;
+}
+
+/* Botones */
+.btn-crear{
+    color: white;
+    padding: 5px;
+    background-color: green;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.btn-eliminar{
+    color: white;
+    padding: 5px;
+    background-color: red;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+}
+
+.btn-editar{
+    display: inline-block;
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* en procesoo card */
+
+.card2{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: gray;
+    color: White;
+    margin: 10px;
+    padding: 15px;
+    width: 250px;
+    height: min-content;
+}
+
+.tittle-card2{
+    border: 1px;
+    border-bottom: 2px solid white;
+    padding: 1px;
+    padding-left: 15px;
+    background-color:var(--gray2);
+    text-align: start;
+    margin: 5px;
+}
+
+/* en procesoo card */
+
+.card3{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: greenyellow;
+    color: White;
+    margin: 10px;
+    padding: 15px;
+    width: 250px;
+    height: min-content;
+}
+
+.tittle-card3{
+    border: 1px;
+    border-bottom: 2px solid white;
+    padding: 1px;
+    padding-left: 15px;
+    background-color:green;
+    text-align: start;
+    margin: 5px;
+}
+
+
+

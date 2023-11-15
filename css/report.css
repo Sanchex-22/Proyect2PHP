@@ -1,0 +1,87 @@
+:root {
+    --black1:#050505;
+    --black2:#030303;
+    --black3:#060606;
+    --black4:#090909;
+    --black5:#0c0c0c;
+    --gray2:#1d1d1d;
+    --gray3:#1e1e1e;
+    --gray4:#343434;
+    --gray5:#4a4a4a;
+    --gray6:#bbbbbb;
+    --gray7:#d2d2d2;
+    --gray8:#e8e8e8;
+    --white:#ffffff;
+}
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    outline: none;
+  }  
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: max-content;
+    margin: 5px;
+}
+.dashboard table{
+    text-align: center;
+    border: 1px solid var(--white);
+}
+.dashboard table tr th{
+    text-align: center;
+    background-color: var(--gray4);
+    border: 1px solid var(--white);
+    margin: 5px;
+}
+.dashboard table tr td{
+    text-align: center;
+    background-color: var(--gray2);
+    border: 0.5px solid var(--white);
+}
+
+/*Buttons*/
+.create-btn{
+    width:100px;
+    height: 25px; 
+    background-color: green; 
+    color: white;
+    border-radius: 10px;
+    border-color: 1px var(--white);
+    margin-bottom: 10px;
+}
+
+.edit-btn{
+    width:100px;
+    height: 25px; 
+    background-color: gray; 
+    color: white;
+    border-radius: 10px;
+    border-color: 1px var(--white);
+    margin: 5px;
+}
+
+.eliminate-btn{
+    width:100px;
+    height: 25px; 
+    background-color: red; 
+    color: white;
+    border-radius: 10px;
+    border-color: 1px var(--white);
+    margin: 5px;
+}

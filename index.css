@@ -1,0 +1,88 @@
+:root {
+    --black1:#050505;
+    --black2:#030303;
+    --black3:#060606;
+    --black4:#090909;
+    --black5:#0c0c0c;
+    --gray2:#1d1d1d;
+    --gray3:#1e1e1e;
+    --gray4:#343434;
+    --gray5:#4a4a4a;
+    --gray6:#bbbbbb;
+    --gray7:#d2d2d2;
+    --gray8:#e8e8e8;
+    --white:#ffffff;
+}
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    outline: none;
+  }  
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: var(--gray2);
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray8);
+    background-color: var(--black1);
+    padding: 5px;
+}
+.navbar ul {
+    padding: 0; /* Establece el padding en cero */
+    margin: 5px;
+}
+  
+.nav-izq{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+.nav-der{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding-right: 5px;
+}
+.nav-der li{
+    list-style: none;
+    margin: 5px;
+}
+.nav-izq li{
+    list-style: none;
+    margin: 5px;
+}
+.nav-izq li a{
+    list-style: none;
+    text-decoration: none;
+    color: var(--white);
+}
+.nav-izq li a:hover{
+    list-style: none;
+    text-decoration: none;
+    color: blue;
+}
+
+.btn-logout{
+    background-color: red;
+    color: var(--white);
+    border-radius: 25px;
+    padding: 5px;
+}
+.btn-logout:hover {
+    background-color: var(--white); /* Cambia el fondo a blanco */
+    color: red; /* Cambia el color del texto a rojo */
+}
