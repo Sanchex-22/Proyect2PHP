@@ -23,14 +23,11 @@
         }
 
         public function traer_task($id) {
-            $instruccion = "Select * from Tareas";
-            $consulta = $this->conn->query($instruccion);
-            $res = $consulta->fetch_all(MYSQLI_ASSOC);
-            
-            $consulta->close();  // Cierra la consulta
-            $this->conn->close();
-
-            return $res;
+            $sql = "SELECT * FROM Tareas WHERE cod = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt;
         }
 
         public function create_task($titulo, $descripcion, $estado, $fecha_compromiso, $tipo_, $responsable) {
