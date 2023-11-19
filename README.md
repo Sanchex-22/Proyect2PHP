@@ -1,5 +1,6 @@
-# Proyect1PHP
+# Proyect2PHP
 
+Seguimiento del Proyecto1 de php, construccion y consumo de Api Rest :)
 
 # Instrucciones para Configurar la Base de Datos
 
