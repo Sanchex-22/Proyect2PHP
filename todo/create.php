@@ -5,26 +5,27 @@ header("Access-Control-Allow-Methods:POST");
 header("Access-Control-Max-Age:3600");
 header("Access-Control-Allow-Headers:Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With");
 
-include_once('../configuracion/conexion.php');
-include_once('../objetos/todo.php');
-
+include_once('../database/db_models.php.php');
+include_once('../models/taskmodels.php');   
+// yeah
 $conex = new Conexion();
 $db = $conex->getConexion();
 
-$todo = new Todo($db);
+$task = new task($db);
 
+// endpoint 
 $data = json_decode(file_get_contents("php://input"));
 
 
 if(!empty($data->titulo) && !empty($data->descripcion) && !empty($data->estado) && !empty($data->fecha) && !empty($data->responsable) && !empty($data->tipo_tarea)){
-    $todo->titulo = $data->titulo;
-    $todo->descripcion = $data->descripcion;
-    $todo->estado = $data->estado;
-    $todo->fecha = $data->fecha;
-    $todo->responsable = $data->responsable;
-    $todo->tipo_tarea = $data->tipo_tarea;
+    $task->titulo = $data->titulo;
+    $task->descripcion = $data->descripcion;
+    $task->estado = $data->estado;
+    $task->fecha = $data->fecha;
+    $task->responsable = $data->responsable;
+    $task->tipo_tarea = $data->tipo_tarea;
 
-    if($todo->insert_new()){
+    if($task->insert_new()){
         http_response_code(201);
         echo json_encode(array("message"=>"La tarea ha sido creada"));
     }
