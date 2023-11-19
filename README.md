@@ -54,39 +54,15 @@ Para que la aplicación funcione correctamente, necesitas configurar una base de
     |http://localhost/Proyect2_DVII/                                                |
     User ROUTES
     | **POST**    | /api/createUser.php        | login an  user and create
-    |
-    |   {"User_Name":"carlo2"}
+    {"User_Name":"carlo2"}
     |
     Task ROUTES
     | **POST**    | /api/create.php            | new task
-    |
-    |   {
-            "Titulo":"xd",
-            "Descripcion":"xd2",
-            "Estado":"estado", 
-            "Fecha_Compromiso":"2023-12-01",
-            "Responsable":"responsable",
-            "tipo_":"tipo",
-            "Etiqueta" :"(Editado)"
-        }
-    |
+    {"Titulo":"xd","Descripcion":"xd2","Estado":"estado", "Fecha_Compromiso":"2023-12-01","Responsable":"responsable","tipo_":"tipo","Etiqueta" :"(Editado)"}
     | **PUT**     | /api/edit.php              | edit task
-    |
-    |   {
-            "cod":"3",
-            "Titulo":"Titulo Editado",
-            "Descripcion":"Mi primera chamba",
-            "Estado":"estado", 
-            "Fecha_Compromiso":"2023-12-01",
-            "Responsable":"Eladio",
-            "tipo_":"tipo",
-            "Etiqueta" :"(Editado)"
-        }
-    |
+    {"cod":"3","Titulo":"Titulo Editado","Descripcion":"Mi primera chamba","Estado":"estado","Fecha_Compromiso":"2023-12-01","Responsable":"Eladio","tipo_":"tipo","Etiqueta" :"(Editado)"}
     | **DELETE**  | /api/delete.php            | delete task
-    |
-    |   {"cod":"2"}
-    |
+    {"cod":"2"}
     | **GETALL**     | /api/getAll.php         | get All task
     |
     | **GETONE**     | /api/getOne.php         | get One Task
