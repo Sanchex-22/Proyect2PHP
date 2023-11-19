@@ -63,9 +63,7 @@ Para que la aplicación funcione correctamente, necesitas configurar una base de
     | **DELETE**  | /api/delete.php            | delete task
     {"cod":"2"}
     | **GETALL**     | /api/getAll.php         | get All task
-    |
     | **GETONE**     | /api/getOne.php         | get One Task
-    |
 
 
     </div>
