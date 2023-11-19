@@ -17,13 +17,9 @@
  
         public function consultar_task() {
             $instruccion = "Select * from Tareas";
-            $consulta = $this->conn->query($instruccion);
-            $res = $consulta->fetch_all(MYSQLI_ASSOC);
-            
-            $consulta->close();  // Cierra la consulta
-            $this->conn->close();
-
-            return $res;
+            $stmt = $this->conn->prepare($instruccion);
+            $stmt->execute();
+            return $stmt;
         }
 
         public function traer_task($id) {
