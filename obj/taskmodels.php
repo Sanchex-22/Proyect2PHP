@@ -82,15 +82,20 @@
         }
         
         public function eliminar_task($id){
-            $taskId = $this->conn->real_escape_string($id);
-            $sql = "DELETE FROM Tareas WHERE cod = '$taskId'";
-            if ($this->conn->query($sql) === TRUE) {
-                echo "La tarea fue eliminada con éxito";
-            } else {
-                echo "Error al eliminar la tarea: " . $this->conn->error;
+            $query = "DELETE FROM Tareas WHERE cod = :id";
+            $stmt = $this->conn->prepare($query);
+        
+            // Limpiar y vincular el parámetro
+            $taskId = htmlspecialchars(strip_tags($id));
+            $stmt->bindParam(":id", $taskId);
+        
+            // Ejecutar la consulta
+            if($stmt->execute()){
+                return true;
             }
-            $this->conn->close();
+            return false;
         }
+        
     }
 
 ?>
