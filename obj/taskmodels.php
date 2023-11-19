@@ -61,40 +61,100 @@
             }
         }
         
-        public function edit_task($id,$titulo,$descripcion,$estado,$fecha_compromiso,$tipo_,$responsable){
-            $sql = "UPDATE tareas SET 
-            Titulo='$titulo', 
-            Descripcion='$descripcion', 
-            Estado='$estado', 
-            Fecha_Compromiso='$fecha_compromiso',
-            Responsable='$responsable',
-            Tipo_ = '$tipo_',
-            Etiqueta = '(Editado)'
-            WHERE cod='$id'";
+        public function edit_task($cod, $titulo, $descripcion, $estado, $fecha_compromiso, $tipo_, $responsable) {
+            try {
+                // Verificar si la tarea existe
+                $check_query = "SELECT cod FROM tareas WHERE cod = :cod";
+                $check_stmt = $this->conn->prepare($check_query);
+                $check_stmt->bindParam(":cod", $cod);
+                $check_stmt->execute();
+        
+                if ($check_stmt->rowCount() > 0) {
+                    // La tarea existe, proceder con la actualización
+                    $update_query = "UPDATE tareas SET 
+                        Titulo=:Titulo, 
+                        Descripcion=:Descripcion, 
+                        Estado=:Estado, 
+                        Fecha_Compromiso=:Fecha_Compromiso,
+                        Responsable=:Responsable,
+                        Tipo_=:Tipo_,
+                        Etiqueta='(Editado)'
+                        WHERE cod=:cod";
+        
+                    $update_stmt = $this->conn->prepare($update_query);
+        
+                    // Limpiar y vincular los parámetros
+                    $titulo = htmlspecialchars(strip_tags($titulo));
+                    $descripcion = htmlspecialchars(strip_tags($descripcion));
+                    $estado = htmlspecialchars(strip_tags($estado));
+                    $fecha_compromiso = htmlspecialchars(strip_tags($fecha_compromiso));
+                    $responsable = htmlspecialchars(strip_tags($responsable));
+                    $tipo_ = htmlspecialchars(strip_tags($tipo_));
+                    $cod = htmlspecialchars(strip_tags($cod));
+        
+                    $update_stmt->bindParam(":cod", $cod);
+                    $update_stmt->bindParam(":Titulo", $titulo);
+                    $update_stmt->bindParam(":Descripcion", $descripcion);
+                    $update_stmt->bindParam(":Estado", $estado);
+                    $update_stmt->bindParam(":Fecha_Compromiso", $fecha_compromiso);
+                    $update_stmt->bindParam(":Responsable", $responsable);
+                    $update_stmt->bindParam(":Tipo_", $tipo_);
+        
+                    // Ejecutar la consulta de actualización
+                    if ($update_stmt->execute()) {
+                        http_response_code(200);
+                        echo json_encode(array("message" => "La tarea se actualizó correctamente"));
+                        return true;
+                    } else {
+                        http_response_code(503);
+                        echo json_encode(array("message" => "Error al actualizar la tarea"));
+                        return false; 
+                    }
+                } else {
+                    http_response_code(404);
+                    echo json_encode(array("message" => "La tarea no existe"));
+                    return false;
+                }
+            } catch (PDOException $e) {
+                http_response_code(503);
+                echo json_encode(array("message" => "Error al actualizar la tarea: " . $e->getMessage()));
+                return false;
+            }
+        }
+        
+        
+        
+        public function eliminar_task($id) {
+            try {
+                $check_query = "SELECT cod FROM Tareas WHERE cod = :id";
+                $check_stmt = $this->conn->prepare($check_query);
+                $check_stmt->bindParam(":id", $id);
+                $check_stmt->execute();
+        
+                if ($check_stmt->rowCount() > 0) {
+                    // La tarea existe, proceder con la eliminación
+                    $delete_query = "DELETE FROM Tareas WHERE cod = :id";
+                    $delete_stmt = $this->conn->prepare($delete_query);
+        
+                    // Limpiar y vincular el parámetro
+                    $taskId = htmlspecialchars(strip_tags($id));
+                    $delete_stmt->bindParam(":id", $taskId);
 
-            if ($this->conn->query($sql) === TRUE) {
-            echo "La tarea se actualizó correctamente.";
-            } else {
-            echo "Error al actualizar la tarea: " . $this->conn->error;
+                    if ($delete_stmt->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    http_response_code(404);
+                    echo json_encode(array("message" => "La tarea no existe"));
+                    return false;
+                }
+            } catch (PDOException $e) {
+                return false;
             }
-            // Cerrar la conexión a la base de datos
-            $this->conn->close();
         }
         
-        public function eliminar_task($id){
-            $query = "DELETE FROM Tareas WHERE cod = :id";
-            $stmt = $this->conn->prepare($query);
-        
-            // Limpiar y vincular el parámetro
-            $taskId = htmlspecialchars(strip_tags($id));
-            $stmt->bindParam(":id", $taskId);
-        
-            // Ejecutar la consulta
-            if($stmt->execute()){
-                return true;
-            }
-            return false;
-        }
         
     }
 
