@@ -55,7 +55,6 @@ Para que la aplicación funcione correctamente, necesitas configurar una base de
     User ROUTES
     | **POST**    | /api/createUser.php        | login an  user and create
     {"User_Name":"carlo2"}
-    |
     Task ROUTES
     | **POST**    | /api/create.php            | new task
     {"Titulo":"xd","Descripcion":"xd2","Estado":"estado", "Fecha_Compromiso":"2023-12-01","Responsable":"responsable","tipo_":"tipo","Etiqueta" :"(Editado)"}
