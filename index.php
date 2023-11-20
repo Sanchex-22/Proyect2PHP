@@ -6,13 +6,14 @@
     <title>Tareas PHP</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-    <Nav class="navbar">
+    <nav class="navbar">
         <li>
             <img src="img/logo.png" alt="logo" style="height: 40px; width: 40px;">
         </li>
-    </Nav>
+    </nav>
     <div class="login">
         <div class="card-login">
             <h1>Login</h1>
@@ -22,34 +23,38 @@
                 <input class="login-btn" type="submit" value="Iniciar Sesión">
             </form>
         </div>
-
-        
-        <?php
-        session_start();
-        if (isset($_SESSION["username"])) {
-            header("Location: dashboard.php");
-            exit();
-        }
-        require_once('database/db_models.php'); // Asegúrate de incluir el archivo de conexión aquí
-        require_once('models/user_models.php'); // Incluye la nueva clase
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $username = $_POST["username"];
-
-            $auth = new users();
-            if ($auth->autenticar($username)) {
-                $_SESSION["username"] = $username;
-                header("Location: dashboard.php");
-                exit();
-            } else {
-                echo "Usuario o contraseña incorrectos. Inténtalo de nuevo.";
-            }
-        }
-        ?>
-
-
-        
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('.formulario').submit(function(event) {
+                event.preventDefault();
+                
+                const username = $('#username').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: 'api/createUser.php',
+                    data: JSON.stringify({ User_Name: username }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        alert('Usuario logueado ' + data);
+
+                        // Llama a una función PHP para establecer la sesión
+                        $.post('set_session.php', { User_Name: username }, function(response) {
+                            console.log(response);
+                        });
+
+                        // Redirige al usuario a la página de dashboard
+                        window.location.href = 'dashboard.php';
+                    },
+                    error: function(error) {
+                        console.error('Error en la solicitud:', error);
+                        alert('Ocurrió un error al procesar la solicitud. Por favor, inténtalo de nuevo.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
