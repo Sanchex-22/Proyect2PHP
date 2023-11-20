@@ -7,12 +7,12 @@
     include_once('../database/db_models.php');
     include_once('../obj/user_models.php');   
     // yeah
+    session_start();
     $conex = new ConexionDB();
     $db = $conex->getConexionDB();
     $user = new users($db);
 
     $data = json_decode(file_get_contents("php://input"));
-
     if (!empty($data->User_Name)) {
         // Llamar al método create_task() con los parámetros necesarios
         $User_Name = $data->User_Name;
@@ -21,6 +21,7 @@
     
         // Verificar el resultado de la operación
         if ($result) {
+            $_SESSION["username"] = $User_Name;
             http_response_code(201);
             echo json_encode(array("message" => "usuario creado"));
         } else {

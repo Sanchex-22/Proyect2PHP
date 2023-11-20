@@ -12,6 +12,7 @@
         public function autenticar($username) {
             try {
                 // Verificar si el User_Name ya existe
+                var_dump($username);
                 $check_query = "SELECT User_Name FROM Usuarios WHERE User_Name = :User_Name";
                 $check_stmt = $this->conn->prepare($check_query);
                 $check_stmt->bindParam(":User_Name", $username);
