@@ -51,15 +51,37 @@ $username = $_SESSION["username"];
                 <th>option</th>
             </tr>
             <!--Esto seria lo que hay que mapear-->
-            <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "eliminar") {
-                    $taskId = $_POST["task_id"];
-                    require_once('models/taskmodels.php');
-                
-                    $eliminatetarea = new task();
-                    $eliminatetarea->eliminar_task($taskId);
-                }
-            ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Asegúrate de que el elemento 'eliminate' exista
+                    const eliminateForm = document.getElementById('eliminate');
+
+                    if (eliminateForm) {
+                        eliminateForm.addEventListener('submit', function(event) {
+                            event.preventDefault();
+                            const cod = document.getElementById('cod').value;
+                            console.log(cod);
+                            const formData = {
+                                cod: cod,
+                            };
+
+                            fetch('api/delete.php', {
+                                method: 'POST',
+                                body: JSON.stringify(formData),
+                            })
+                            .then(response => response.text())
+                            .then(data => {
+                                alert("Tarea eliminada exitosamente: " + data);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        });
+                    } else {
+                        console.error("Elemento 'eliminate' no encontrado");
+                    }
+                });
+            </script>
             <?php
             // URL de la API
             $api_url = "http://localhost/Proyect2_DVII/api/getAll.php";
@@ -103,10 +125,9 @@ $username = $_SESSION["username"];
                     <!-- btn Editar -->
                     <a href="edit_task.php?id=<?php echo $tarea['cod']; ?>" class="edit-btn">Editar</a>
                     <!-- btn Eliminar -->
-                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <input type="hidden" name="action" value="eliminar">
-                        <input type="hidden" name="task_id" value="<?php echo $tarea['cod']; ?>">
-                        <button type="submit" class="eliminate-btn">Eliminar</button>
+                    <form id="eliminate">
+                        <input id="cod" value="<?php echo $tarea['cod']; ?>">
+                        <input type="submit" class="btn-eliminar">X</input>
                     </form>   
                     </td>
                     
