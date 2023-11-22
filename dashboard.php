@@ -125,7 +125,7 @@ $username = $_SESSION["username"];
                 <div class="task">
                     <div class="box-x">
                     <form id="eliminate">
-                        <input id="cod" value="<?php echo $tarea['cod']; ?>">
+                        <input hidden id="cod" value="<?php echo $tarea['cod']; ?>">
                         <input type="submit" class="btn-eliminar">X</input>
                     </form>   
                     </div>
@@ -155,10 +155,9 @@ $username = $_SESSION["username"];
             <?php foreach ($tareasEnProceso as $tarea) : ?>
                 <div class="task">
                     <div class="box-x">
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <input type="hidden" name="action" value="eliminar">
-                        <input type="hidden" name="task_id" value="<?php echo $tarea['cod']; ?>">
-                        <button type="submit" class="btn-eliminar">X</button>
+                    <form id="eliminate">
+                        <input hidden id="cod" value="<?php echo $tarea['cod']; ?>">
+                        <input type="submit" class="btn-eliminar">X</input>
                     </form>   
                     </div>
                     <div>
@@ -187,11 +186,10 @@ $username = $_SESSION["username"];
             <?php foreach ($tareasTerminadas as $tarea) : ?>
                 <div class="task">
                     <div class="box-x">
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <input type="hidden" name="action" value="eliminar">
-                        <input type="hidden" name="task_id" value="<?php echo $tarea['cod']; ?>">
-                        <button type="submit" class="btn-eliminar">X</button>
-                    </form>   
+                    <form id="eliminate">
+                        <input hidden id="cod" value="<?php echo $tarea['cod']; ?>">
+                        <input type="submit" class="btn-eliminar">X</input>
+                    </form>    
                     </div>
                     <div>
                         <!-- <h4>#<?php echo $tarea['cod']; ?></h4> -->

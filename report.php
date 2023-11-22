@@ -126,7 +126,7 @@ $username = $_SESSION["username"];
                     <a href="edit_task.php?id=<?php echo $tarea['cod']; ?>" class="edit-btn">Editar</a>
                     <!-- btn Eliminar -->
                     <form id="eliminate">
-                        <input id="cod" value="<?php echo $tarea['cod']; ?>">
+                        <input hidden id="cod" value="<?php echo $tarea['cod']; ?>">
                         <input type="submit" class="btn-eliminar">X</input>
                     </form>   
                     </td>
