@@ -12,7 +12,7 @@
     $task = new task($db);
 
     $data = json_decode(file_get_contents("php://input"));
-
+    var_dump($data);
 
     if (!empty($data->cod) && !empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado) && !empty($data->Fecha_Compromiso)  && !empty($data->tipo_) && !empty($data->Responsable) && !empty($data->Etiqueta)) {
         // Llamar al método create_task() con los parámetros necesarios

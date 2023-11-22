@@ -24,7 +24,7 @@ if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado)
     $Descripcion = $data->Descripcion;
     $Estado = $data->Estado;
     $Fecha_Compromiso = $data->Fecha_Compromiso;
-    $Responsable = $data->$username;
+    $Responsable = $data->Responsable;
     $tipo_ = $data->tipo_;
     $Etiqueta = $data->Etiqueta;
 

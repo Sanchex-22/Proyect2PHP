@@ -33,11 +33,15 @@
             </li>
         </ul>
     </Nav>
-
+    <?php
+            if (isset($_GET['id'])) {
+            $taskId = $_GET['id'];}
+        ?>
     <div class="edit-card">
         <div class="formulario">
         <h1>Edit Tarea</h1>
-        <form action="" method="post">
+        <form action="" method="post" id="edit">
+        <input type="text" id="cod" name="Responsable" required class="inputs" value="<?php echo $taskId; ?>"><br>
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required class="inputs"><br>
 
@@ -63,39 +67,49 @@
 
             <label for="fecha_compromiso">Fecha Compromiso:</label>
             <input type="datetime-local" id="fecha_compromiso" name="fecha_compromiso" value="" required class="inputs"><br>
-
+            <input type="text" id="responsable" name="Responsable" required class="inputs" value="<?php echo $_SESSION["username"]; ?>"><br>
             <input type="submit" value="Guardar Cambios" class="btn-editar">
             <a href="dashboard.php" class="btn-cancelar">Cancelar</a>
         </form> 
         </div>
 
-        <?php
-        if (isset($_GET['id'])) {
-            $taskId = $_GET['id'];
-            
+        <script>
+            document.getElementById('edit').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const cod = document.getElementById('cod').value;
+                const titulo = document.getElementById('titulo').value;
+                const descripcion = document.getElementById('descripcion').value;
+                const estado = document.getElementById('estado').value;
+                const tipo = document.getElementById('tipo').value;
+                const responsable = document.getElementById('responsable').value;
+                const fecha_compromiso = document.getElementById('fecha_compromiso').value;
+                const etiqueta = 'editado';
+                const formData = {
+                    cod: cod,
+                    Titulo: titulo,
+                    Descripcion: descripcion,
+                    Estado: estado,
+                    tipo_: tipo,
+                    Responsable: responsable,
+                    Fecha_Compromiso: fecha_compromiso,
+                    Etiqueta : etiqueta
+                };
 
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // Conectar a la base de datos (asegúrate de incluir tu archivo de conexión)
-                require_once('models/taskmodels.php');
-                // Obtener los valores del formulario
-                $id = $taskId;
-                $titulo = $_POST["titulo"];
-                $descripcion = $_POST["descripcion"];
-                $estado = $_POST["estado"];
-                $fecha_compromiso = $_POST["fecha_compromiso"];
-                $tipo_ = $_POST["tipo"];
-                $responsable = $username;
-                $task1 = new task();
-                if($task1->edit_task($id,$titulo,$descripcion,$estado,$fecha_compromiso,$tipo_,$responsable)){
-                    header("Location: dashboard.php");
-                }
-            }
-        } else {
-            // Si no se proporciona un ID válido, puedes manejar el caso de error aquí
-            echo "Error: No se ha proporcionado un ID de tarea válido.";
-        }
+                fetch('api/edit.php', {
+                    method: 'POST',
+                    body: JSON.stringify(formData),
 
-        ?>
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert("Tarea creada exitosamente: " + data);
+                    window.location.href = 'dashboard.php';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
     </div>
 </body>
 </html>

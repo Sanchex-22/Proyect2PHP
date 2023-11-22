@@ -45,36 +45,39 @@ $username = $_SESSION["username"];
             <button class="btn-crear" id="redireccionarBtn">+ Añadir tarea</button>
 
             <!-- Tareas Mapping -->
-            <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "eliminar") {
-    $taskId = $_POST["task_id"];
-    $api_url = "api/delete.php";
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Asegúrate de que el elemento 'eliminate' exista
+                const eliminateForm = document.getElementById('eliminate');
 
-    // Configurar el contexto de transmisión
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'DELETE', // Use DELETE method
-            'header' => 'Content-Type: application/json',
-            'content' => json_encode(["cod" => $taskId]),
-        ],
-    ]);
+                if (eliminateForm) {
+                    eliminateForm.addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        const cod = document.getElementById('cod').value;
+                        console.log(cod);
+                        const formData = {
+                            cod: cod,
+                        };
 
-    // Realizar la solicitud DELETE a la API
-    $response = file_get_contents($api_url, false, $context);
+                        fetch('api/delete.php', {
+                            method: 'POST',
+                            body: JSON.stringify(formData),
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            alert("Tarea eliminada exitosamente: " + data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    });
+                } else {
+                    console.error("Elemento 'eliminate' no encontrado");
+                }
+            });
+        </script>
 
-    // Verificar si la solicitud fue exitosa
-    if ($response === FALSE) {
-        // Manejar el error, por ejemplo:
-        die('Error al realizar la solicitud DELETE');
-    }
 
-    // Procesar la respuesta (puede ser un JSON en este caso)
-    $json_response = json_decode($response, true);
-    print_r($json_response);
-}
-
-
-            ?>
 
             <?php
             // URL de la API
@@ -121,10 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["a
             foreach ($tareasPorHacer as $tarea) : ?>
                 <div class="task">
                     <div class="box-x">
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <input type="hidden" name="action" value="eliminar">
-                        <input type="hidden" name="task_id" value="<?php echo $tarea['cod']; ?>">
-                        <button type="submit" class="btn-eliminar">X</button>
+                    <form id="eliminate">
+                        <input id="cod" value="<?php echo $tarea['cod']; ?>">
+                        <input type="submit" class="btn-eliminar">X</input>
                     </form>   
                     </div>
                     <div>

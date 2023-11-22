@@ -12,7 +12,7 @@
     $task = new task($db);
 
     $data = json_decode(file_get_contents("php://input"));
-
+    var_dump($data);
     if(!empty($data->cod)){
         $cod = $data->cod;
 

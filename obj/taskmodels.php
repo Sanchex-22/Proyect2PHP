@@ -93,6 +93,7 @@
                     $responsable = htmlspecialchars(strip_tags($responsable));
                     $tipo_ = htmlspecialchars(strip_tags($tipo_));
                     $cod = htmlspecialchars(strip_tags($cod));
+                    $etiqueta = htmlspecialchars(strip_tags($etiqueta));
         
                     $update_stmt->bindParam(":cod", $cod);
                     $update_stmt->bindParam(":Titulo", $titulo);
@@ -101,8 +102,9 @@
                     $update_stmt->bindParam(":Fecha_Compromiso", $fecha_compromiso);
                     $update_stmt->bindParam(":Responsable", $responsable);
                     $update_stmt->bindParam(":Tipo_", $tipo_);
-                    $$update_stmt->bindParam(':etiqueta', $etiqueta);
-        
+                    $update_stmt->bindParam(':Etiqueta', $etiqueta);
+                    
+
                     // Ejecutar la consulta de actualización
                     if ($update_stmt->execute()) {
                         http_response_code(200);
