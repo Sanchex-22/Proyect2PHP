@@ -15,7 +15,7 @@ $task = new task($db);
 $data = json_decode(file_get_contents("php://input"));
 
 
-if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado) && !empty($data->Fecha_Compromiso)  && !empty($data->tipo_) && !empty($data->Responsable)) {
+if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado) && !empty($data->Fecha_Compromiso)  && !empty($data->tipo_) && !empty($data->Responsable) && !empty($data->Etiqueta)) {
     // Llamar al método create_task() con los parámetros necesarios
     $Titulo = $data->Titulo;
     $Descripcion = $data->Descripcion;
@@ -23,6 +23,7 @@ if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado)
     $Fecha_Compromiso = $data->Fecha_Compromiso;
     $Responsable = $data->Responsable;
     $tipo_ = $data->tipo_;
+    $Etiqueta = $data->Etiqueta;
 
     $result = $task->create_task(
         $Titulo,
@@ -30,7 +31,8 @@ if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado)
         $Estado,
         $Fecha_Compromiso,
         $Responsable,
-        $tipo_
+        $tipo_,
+        $Etiqueta
     );
 
     // Verificar el resultado de la operación

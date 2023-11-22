@@ -31,6 +31,7 @@
                     "Fecha_Compromiso" => $Fecha_Compromiso,
                     "Tipo_" => $Tipo_,
                     "Responsable" => $Responsable,
+                    "Etiqueta" => $Etiqueta
                 );
                 array_push($todo_arr["tareas"], $item);
             }

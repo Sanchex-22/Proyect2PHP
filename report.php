@@ -61,11 +61,33 @@ $username = $_SESSION["username"];
                 }
             ?>
             <?php
-            require_once('models/taskmodels.php');
-            // Instancia la clase `task`
-            $tarea = new task();
-            // Obtén las tareas desde la base de datos
-            $tareas = $tarea->consultar_task();
+            // URL de la API
+            $api_url = "http://localhost/Proyect2_DVII/api/getAll.php";
+
+            // Configurar el contexto de transmisión
+            $context = stream_context_create([
+                'http' => [
+                    'method' => 'GET',
+                    // Puedes agregar encabezados u otras configuraciones según sea necesario
+                    'header' => 'Content-Type: application/json',
+                ],
+            ]);
+
+            // Realizar la solicitud GET a la API
+            $response = file_get_contents($api_url, false, $context);
+
+            // Verificar si la solicitud fue exitosa
+            if ($response === FALSE) {
+                // Manejar el error, por ejemplo:
+                die('Error al realizar la solicitud GET');
+            }
+
+            // Procesar la respuesta (puede ser un JSON en este caso)
+            $json_response = json_decode($response, true);
+            $tareas = $json_response['tareas'];
+            // echo '<pre>';
+            // print_r($tareas);
+            // echo '</pre>';
             foreach ($tareas as $tarea) : ?>
                 
                 <tr>

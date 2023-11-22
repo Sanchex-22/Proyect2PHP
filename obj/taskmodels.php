@@ -9,6 +9,7 @@
         protected $fecha_compromiso;
         protected $tipo_;
         protected $responsable;
+        protected $etiqueta;
 
         public function __construct($db)
         {
@@ -30,10 +31,9 @@
             return $stmt;
         }
 
-        public function create_task($titulo, $descripcion, $estado, $fecha_compromiso, $tipo_, $responsable) {
-            try {
+        public function create_task($titulo, $descripcion, $estado, $fecha_compromiso, $responsable, $tipo_, $etiqueta) {            try {
                 // Preparar la consulta SQL para insertar la tarea
-                $sql = "INSERT INTO tareas (Titulo, Descripcion, Estado, Fecha_Compromiso, Responsable, Tipo_) VALUES (:titulo, :descripcion, :estado, :fecha_compromiso, :responsable, :tipo)";
+                $sql = "INSERT INTO tareas (Titulo, Descripcion, Estado, Fecha_Compromiso, Responsable, Tipo_, Etiqueta) VALUES (:titulo, :descripcion, :estado, :fecha_compromiso, :responsable, :tipo, :etiqueta)";
                 
                 // Preparar la declaración
                 $stmt = $this->conn->prepare($sql);
@@ -45,6 +45,7 @@
                 $stmt->bindParam(':fecha_compromiso', $fecha_compromiso);
                 $stmt->bindParam(':responsable', $responsable);
                 $stmt->bindParam(':tipo', $tipo_);
+                $stmt->bindParam(':etiqueta', $etiqueta);
                 
                 // Ejecutar la consulta
                 $stmt->execute();
@@ -61,7 +62,7 @@
             }
         }
         
-        public function edit_task($cod, $titulo, $descripcion, $estado, $fecha_compromiso, $tipo_, $responsable) {
+        public function edit_task($cod, $titulo, $descripcion, $estado, $fecha_compromiso, $tipo_, $responsable,$etiqueta) {
             try {
                 // Verificar si la tarea existe
                 $check_query = "SELECT cod FROM tareas WHERE cod = :cod";
@@ -99,6 +100,7 @@
                     $update_stmt->bindParam(":Fecha_Compromiso", $fecha_compromiso);
                     $update_stmt->bindParam(":Responsable", $responsable);
                     $update_stmt->bindParam(":Tipo_", $tipo_);
+                    $$update_stmt->bindParam(':etiqueta', $etiqueta);
         
                     // Ejecutar la consulta de actualización
                     if ($update_stmt->execute()) {

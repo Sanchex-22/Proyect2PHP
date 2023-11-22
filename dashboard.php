@@ -45,22 +45,36 @@ $username = $_SESSION["username"];
             <button class="btn-crear" id="redireccionarBtn">+ Añadir tarea</button>
 
             <!-- Tareas Mapping -->
-            <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "eliminar") {
-                    $taskId = $_POST["task_id"];
-                    require_once('models/taskmodels.php');
-                
-                    $eliminatetarea = new task();
-                    $eliminatetarea->eliminar_task($taskId);
-                }
-            ?>
-            <?php
-            require_once('models/taskmodels.php');
-            // Instancia la clase `task`
-            $tarea = new task();
-            // Obtén las tareas desde la base de datos
-            $tareas = $tarea->consultar_task();
 
+            <?php
+            // URL de la API
+            $api_url = "http://localhost/Proyect2_DVII/api/getAll.php";
+
+            // Configurar el contexto de transmisión
+            $context = stream_context_create([
+                'http' => [
+                    'method' => 'GET',
+                    // Puedes agregar encabezados u otras configuraciones según sea necesario
+                    'header' => 'Content-Type: application/json',
+                ],
+            ]);
+
+            // Realizar la solicitud GET a la API
+            $response = file_get_contents($api_url, false, $context);
+
+            // Verificar si la solicitud fue exitosa
+            if ($response === FALSE) {
+                // Manejar el error, por ejemplo:
+                die('Error al realizar la solicitud GET');
+            }
+
+            // Procesar la respuesta (puede ser un JSON en este caso)
+            $json_response = json_decode($response, true);
+            $tareas = $json_response['tareas'];
+            // echo '<pre>';
+            // print_r($tareas);
+            // echo '</pre>';
+            
             foreach ($tareas as $tarea) {
                 if ($tarea['Estado'] === 'En Progreso') {
                     $tareasEnProceso[] = $tarea;
@@ -72,6 +86,7 @@ $username = $_SESSION["username"];
                     $tareasTerminadas[] = $tarea;
                 }
             }
+
             if (!empty($tareasPorHacer)):
             foreach ($tareasPorHacer as $tarea) : ?>
                 <div class="task">
@@ -84,7 +99,7 @@ $username = $_SESSION["username"];
                     </div>
                     <div>
                         <!-- <h4>#<?php echo $tarea['cod']; ?></h4> -->
-                        <h4>Titulo:<?php echo $tarea['Titulo']; ?> <span style="color: gray;"><?php echo $tarea['Etiqueta']; ?></span></h4>
+                        <h4>Titulo:<?php echo $tarea['Titulo']; ?> <span style="color: gray;"><?php echo $tarea['Estado']; ?></span></h4>
                         <p>Estado:<?php echo $tarea['Estado']; ?></p>
                         <p><?php echo $tarea['Descripcion']; ?></p>
                         <p>Categoria:<?php echo $tarea['Tipo_']; ?></p>
@@ -116,7 +131,7 @@ $username = $_SESSION["username"];
                     </div>
                     <div>
                         <!-- <h4>#<?php echo $tarea['cod']; ?></h4> -->
-                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><?php echo $tarea['Etiqueta']; ?></h4>
+                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><span style="color: gray;"><?php echo $tarea['Estado']; ?></span></h4>
                         <p>Estado:<?php echo $tarea['Estado']; ?></p>
                         <p><?php echo $tarea['Descripcion']; ?></p>
                         <p>Categoria:<?php echo $tarea['Tipo_']; ?></p>
@@ -148,7 +163,7 @@ $username = $_SESSION["username"];
                     </div>
                     <div>
                         <!-- <h4>#<?php echo $tarea['cod']; ?></h4> -->
-                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><?php echo $tarea['Etiqueta']; ?></h4>
+                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><span style="color: gray;"><?php echo $tarea['Etiqueta']; ?></span></h4>
                         <p>Estado:<?php echo $tarea['Estado']; ?></p>
                         <p><?php echo $tarea['Descripcion']; ?></p>
                         <p>Categoria:<?php echo $tarea['Tipo_']; ?></p>
