@@ -35,7 +35,7 @@
     <div class="crear-card">
         <div class="formulario">
         <h1>Crear Tarea</h1>
-        <form action="" method="post">
+        <form action="" method="post" id="create">
             <label for="titulo">Título:</label><br>
             <input type="text" id="titulo" name="titulo" required class="inputs"><br>
 
@@ -66,6 +66,43 @@
             <a href="dashboard.php" class="btn-cancelar">Cancelar</a>
         </form>
         </div>
+        
+        <script>
+    document.getElementById('create').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const titulo = document.getElementById('titulo').value;
+        const descripcion = document.getElementById('descripcion').value;
+        const estado = document.getElementById('estado').value;
+        const tipo = document.getElementById('tipo').value;
+        // const Responsable = document.getElementById('responsable').value;
+        const fecha_compromiso = document.getElementById('fecha_compromiso').value;
+        const etiqueta = '';
+        const formData = {
+            Titulo: titulo,
+            Descripcion: descripcion,
+            Estado: estado,
+            tipo_: tipo,
+            Responsable:'',
+            Fecha_Compromiso: fecha_compromiso,
+            Etiqueta : etiqueta
+        };
+
+        fetch('api/create.php', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert("Tarea creada exitosamente: " + data);
+            window.location.href = 'dashboard.php';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
 
         <?php
         require_once('models/taskmodels.php');

@@ -31,7 +31,8 @@
             return $stmt;
         }
 
-        public function create_task($titulo, $descripcion, $estado, $fecha_compromiso, $responsable, $tipo_, $etiqueta) {            try {
+        public function create_task($titulo, $descripcion, $estado, $fecha_compromiso, $responsable, $tipo_, $etiqueta) {            
+            try {
                 // Preparar la consulta SQL para insertar la tarea
                 $sql = "INSERT INTO tareas (Titulo, Descripcion, Estado, Fecha_Compromiso, Responsable, Tipo_, Etiqueta) VALUES (:titulo, :descripcion, :estado, :fecha_compromiso, :responsable, :tipo, :etiqueta)";
                 

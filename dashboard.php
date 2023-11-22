@@ -45,6 +45,36 @@ $username = $_SESSION["username"];
             <button class="btn-crear" id="redireccionarBtn">+ Añadir tarea</button>
 
             <!-- Tareas Mapping -->
+            <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "eliminar") {
+    $taskId = $_POST["task_id"];
+    $api_url = "api/delete.php";
+
+    // Configurar el contexto de transmisión
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'DELETE', // Use DELETE method
+            'header' => 'Content-Type: application/json',
+            'content' => json_encode(["cod" => $taskId]),
+        ],
+    ]);
+
+    // Realizar la solicitud DELETE a la API
+    $response = file_get_contents($api_url, false, $context);
+
+    // Verificar si la solicitud fue exitosa
+    if ($response === FALSE) {
+        // Manejar el error, por ejemplo:
+        die('Error al realizar la solicitud DELETE');
+    }
+
+    // Procesar la respuesta (puede ser un JSON en este caso)
+    $json_response = json_decode($response, true);
+    print_r($json_response);
+}
+
+
+            ?>
 
             <?php
             // URL de la API
@@ -99,7 +129,7 @@ $username = $_SESSION["username"];
                     </div>
                     <div>
                         <!-- <h4>#<?php echo $tarea['cod']; ?></h4> -->
-                        <h4>Titulo:<?php echo $tarea['Titulo']; ?> <span style="color: gray;"><?php echo $tarea['Estado']; ?></span></h4>
+                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><span style="color: gray;"><?php echo $tarea['Etiqueta']; ?></span></h4>
                         <p>Estado:<?php echo $tarea['Estado']; ?></p>
                         <p><?php echo $tarea['Descripcion']; ?></p>
                         <p>Categoria:<?php echo $tarea['Tipo_']; ?></p>
@@ -131,7 +161,7 @@ $username = $_SESSION["username"];
                     </div>
                     <div>
                         <!-- <h4>#<?php echo $tarea['cod']; ?></h4> -->
-                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><span style="color: gray;"><?php echo $tarea['Estado']; ?></span></h4>
+                        <h4>Titulo:<?php echo $tarea['Titulo']; ?><span style="color: gray;"><?php echo $tarea['Etiqueta']; ?></span></h4>
                         <p>Estado:<?php echo $tarea['Estado']; ?></p>
                         <p><?php echo $tarea['Descripcion']; ?></p>
                         <p>Categoria:<?php echo $tarea['Tipo_']; ?></p>

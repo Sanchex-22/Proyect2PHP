@@ -1,4 +1,7 @@
 <?php
+session_start();
+$username = $_SESSION["username"];
+var_dump($username);
 header("Access-Control-Allow-Origin:*");
 header("Content-Type:application/json;charset=UTF-8");
 header("Access-Control-Allow-Methods:POST");
@@ -13,7 +16,7 @@ $task = new task($db);
 
 // endpoint 
 $data = json_decode(file_get_contents("php://input"));
-
+var_dump($data);
 
 if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado) && !empty($data->Fecha_Compromiso)  && !empty($data->tipo_) && !empty($data->Responsable) && !empty($data->Etiqueta)) {
     // Llamar al método create_task() con los parámetros necesarios
@@ -21,7 +24,7 @@ if (!empty($data->Titulo) && !empty($data->Descripcion) && !empty($data->Estado)
     $Descripcion = $data->Descripcion;
     $Estado = $data->Estado;
     $Fecha_Compromiso = $data->Fecha_Compromiso;
-    $Responsable = $data->Responsable;
+    $Responsable = $data->$username;
     $tipo_ = $data->tipo_;
     $Etiqueta = $data->Etiqueta;
 
